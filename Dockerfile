@@ -17,13 +17,14 @@ ENV DEBIAN_FRONTEND noninteractive
 # Copy the .deb file into the container.
 ADD "${MEDIASERVER_DEB}" /opt/mediaserver/package/
 
+RUN apk add --update linux-headers;
 # Install packages.
 RUN apt-get update && \
     apt-get install -y \
-        apt-utils \
-        binutils \
-        curl \
-        "/opt/mediaserver/package/${MEDIASERVER_DEB##*/}" && \
+    apt-utils \
+    binutils \
+    curl \
+    "/opt/mediaserver/package/${MEDIASERVER_DEB##*/}" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
